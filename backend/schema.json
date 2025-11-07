@@ -1,0 +1,77 @@
+{
+  "feature_order": [
+    "Age",
+    "BMI",
+    "Sleep_Hours",
+    "Acne",
+    "Hair_Loss",
+    "Weight_Gain",
+    "Cycle_Regularity",
+    "Stress_Level",
+    "Physical_Activity",
+    "Diet"
+  ],
+  "field_meta": {
+    "Age": {
+      "type": "number"
+    },
+    "BMI": {
+      "type": "number"
+    },
+    "Sleep_Hours": {
+      "type": "number"
+    },
+    "Acne": {
+      "type": "select",
+      "options": [
+        0,
+        1
+      ]
+    },
+    "Hair_Loss": {
+      "type": "select",
+      "options": [
+        0,
+        1
+      ]
+    },
+    "Weight_Gain": {
+      "type": "select",
+      "options": [
+        0,
+        1
+      ]
+    },
+    "Cycle_Regularity": {
+      "type": "select",
+      "options": [
+        "Regular",
+        "Irregular"
+      ]
+    },
+    "Stress_Level": {
+      "type": "select",
+      "options": [
+        "Low",
+        "Moderate",
+        "High"
+      ]
+    },
+    "Physical_Activity": {
+      "type": "select",
+      "options": [
+        "Low",
+        "Moderate",
+        "High"
+      ]
+    },
+    "Diet": {
+      "type": "select",
+      "options": [
+        "Healthy",
+        "Moderate",
+        "Unhealthy"
+      ]
+    }
+  }
+}
