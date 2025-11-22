@@ -10,25 +10,20 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import tensorflow as tf
 
-# ==== Paths ====
 MODEL_PATH = "models/pcod_model.keras"
 PREPROCESS_PATH = "models/preprocessor.joblib"
 SCHEMA_PATH = "schema.json"
 METRICS_PATH = "metrics.json"
 
-# ==== App Config ====
 app = FastAPI(title="PCOD Probability Estimator (TensorFlow)")
 
-# Enable CORS for frontend access
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # for local demo and frontend
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# ==== Load Model, Preprocessor, Schema ====
 try:
     MODEL = tf.keras.models.load_model(MODEL_PATH)
     PREPROCESSOR = joblib.load(PREPROCESS_PATH)
@@ -40,7 +35,6 @@ with open(SCHEMA_PATH, "r") as f:
 
 FEATURES = SCHEMA["feature_order"]
 
-# ==== Pydantic Models ====
 class PredictRequest(BaseModel):
     payload: dict
 
@@ -48,8 +42,6 @@ class PredictResponse(BaseModel):
     probability: float
     risk_label: str
     inputs_used: dict
-
-# ==== API Routes ====
 
 @app.get("/")
 def root():
@@ -83,7 +75,7 @@ def predict(req: PredictRequest):
 
         # Apply preprocessing
         X_processed = PREPROCESSOR.transform(X_df)
-        X_processed = np.array(X_processed, dtype=np.float32)  # ✅ Fix dtype issue
+        X_processed = np.array(X_processed, dtype=np.float32)
 
         # Predict probability using TensorFlow model
         proba = float(MODEL.predict(X_processed)[0, 0])
